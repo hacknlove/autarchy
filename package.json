@@ -1,0 +1,27 @@
+{
+  "name": "autharchy",
+  "version": "1.0.0",
+  "description": "proxied/saved/mocked environment to test and develop microservices ",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "lint": "eslint --quiet --ext .js ./src --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hacknlove/autharchy.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hacknlove/autharchy/issues"
+  },
+  "homepage": "https://github.com/hacknlove/autharchy#readme",
+  "devDependencies": {
+    "eslint": "^7.32.0"
+  },
+  "dependencies": {
+    "chokidar": "^3.5.2",
+    "deepmerge": "^4.2.2"
+  }
+}
