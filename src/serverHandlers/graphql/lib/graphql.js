@@ -15,9 +15,6 @@ module.exports = async function graphqlHandler(req, res) {
 
   for (const step of steps) {
     context = await step(context)
-    if (context.response) {
-      return send(res, context)
-    }
   }
 
   send(res, context)

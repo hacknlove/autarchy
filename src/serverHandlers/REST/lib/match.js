@@ -10,7 +10,7 @@ module.exports = function match(req) {
       params: {},
       headers: {
         ...req.headers,
-        host: new URL(conf.remote)
+        host: new URL(conf.remote).host
       },
       method: req.method,
       body: req.body,

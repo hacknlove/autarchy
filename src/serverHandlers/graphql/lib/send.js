@@ -12,5 +12,5 @@ module.exports = async function proxy(res, context) {
     return res.send(renderGraphiQL());
   }
 
-  res.json(context.response);
+  res.json({ data: context.response });
 };

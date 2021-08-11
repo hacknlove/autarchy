@@ -1,10 +1,10 @@
 const mongoProxy = require('./mongoProxy');
 
 module.exports = async function recorder(context) {
-  if (context.conf.toDocument) {
+  if (context.response && context.conf.toDocument) {
     await mongoProxy.waitFor;
   
-    await mongoProxy[`rest-${context.conf.name}`].insert(context.conf.toDocument(context));
+    await mongoProxy[`${context.conf.type}-${context.conf.name}`].insertOne(context.conf.toDocument(context));
   }
 
   return context
