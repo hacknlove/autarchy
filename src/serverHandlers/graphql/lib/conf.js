@@ -1,7 +1,9 @@
+const { resolve } = require('path')
 const glob = require('glob');
 const chokidar = require('chokidar');
 
-const configPath = `${process.cwd()}/${process.argv[2]}`;
+const configPath = process.cwd();
+const prefix = resolve(configPath, 'queries');
 
 const defecto = {
   remote: null,
@@ -25,13 +27,12 @@ const defecto = {
   })
 };
 
-const prefix = `${configPath.replace(/config.js$/, '')}/queries`;
 
 const paths = {};
 
 const conf = {
   ...defecto,
-  ...require(configPath),
+  ...require(resolve(configPath, 'config.js')),
   queries: [],
 };
 

@@ -1,5 +1,5 @@
 const {
-  shouldRenderGraphiQL,
+  renderGraphiQL,
 } = require('graphql-helix');
 
 module.exports = async function proxy(res, context) {
@@ -9,7 +9,7 @@ module.exports = async function proxy(res, context) {
   }
 
   if (context.response.shouldRenderGraphiQL) {
-    res.send(shouldRenderGraphiQL());
+    return res.send(renderGraphiQL());
   }
 
   res.json(context.response);

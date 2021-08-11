@@ -2,7 +2,7 @@
 
 const chokidar = require('chokidar');
 const { fork } = require('child_process');
-const config = require(`${process.cwd()}/.cuchito/config.json`)
+const config = require(`${process.cwd()}/.autharchy/config.js`)
 
 const serverHandlers = {
   REST: `${__dirname}/serverHandlers/REST/index.js`,
@@ -20,6 +20,8 @@ function addServer(path) {
     return;
   }
 
+  console.log(`add ${conf.type} server for ${path}`)
+
   servers[path] = fork(serverHandlers[conf.type], [], { cwd: path.replace(/config.js$/, '') });
 }
 
@@ -29,12 +31,14 @@ function changeServer(path) {
 }
 
 function removeServer(path) {
-  delete require.cache(require.resolve(path));
-  servers[path].kill();
+  delete require.cache[require.resolve(path)];
+  if (servers[path]) {
+    servers[path].kill();
+  }
 }
 
 function main() {
-  const configWatched = chokidar.watch(`${process.cwd()}/.cuchito/*/config.js`, {
+  const configWatched = chokidar.watch(`${process.cwd()}/.autharchy/*/config.js`, {
     ignoreInitial: false,
     awaitWriteFinish: true,
     usePolling: true,

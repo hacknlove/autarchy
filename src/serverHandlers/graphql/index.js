@@ -1,5 +1,5 @@
 const express = require('express');
-const { app, connect } = require('../shared/express');
+const { app, connect } = require('../../shared/express');
 
 const { conf } = require('./lib/conf');
 

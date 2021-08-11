@@ -23,7 +23,7 @@ let maxTries;
 const mongoProxy = new Proxy(mongo, mongoHandler);
 
 async function mongoConnect() {
-  const client = await MongoClient.connect(process.env.CUCHITO_MONGO_URL, {
+  const client = await MongoClient.connect(process.env.AUTHARCHY_MONGO_URL || 'mongodb://localhost:27017/autharchy', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   }).catch((err) => ({ err }));
@@ -33,6 +33,7 @@ async function mongoConnect() {
       mongoConnect();
       return;
     }
+    console.log('Not able to connect with AUTHARCHY_MONGO_URL')
     process.exit(1);
   }
 

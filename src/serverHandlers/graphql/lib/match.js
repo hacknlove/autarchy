@@ -8,8 +8,8 @@ const {
 module.exports = function match(req) {
   delete req.headers['if-none-match'];
 
-  if (shouldRenderGraphiQL(req.request)) {
-    return { shouldRenderGraphiQL: true }
+  if (shouldRenderGraphiQL(req)) {
+    return { response: {shouldRenderGraphiQL: true } }
   }
 
   const context = {
@@ -20,11 +20,11 @@ module.exports = function match(req) {
         ...req.headers,
         host: new URL(conf.remote)
       },
-      graphql: getGraphQLParameters(req.request),
       method: req.method,
       body: req.body,
       query: req.query,
     },
+    graphql: getGraphQLParameters(req),
     conf
   }
 

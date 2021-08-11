@@ -24,8 +24,18 @@
     "eslint": "^7.32.0"
   },
   "dependencies": {
+    "ajc": "^0.0.1",
     "chokidar": "^3.5.2",
+    "compression": "^1.7.4",
     "deepmerge": "^4.2.2",
+    "express": "^4.17.1",
+    "glob": "^7.1.7",
+    "graphql-helix": "^1.7.0",
+    "graphql-request": "^3.5.0",
+    "mongodb": "^4.1.0",
+    "node-fetch": "^2.6.1",
+    "path-to-regexp": "^6.2.0",
+    "timeout-signal": "^1.1.0",
     "yargs": "^17.1.0"
   }
 }

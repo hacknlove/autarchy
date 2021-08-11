@@ -1,7 +1,7 @@
 const { request } = require('graphql-request');
 const { conf } = require('./conf');
 
-exports.proxy = async function proxy(context) {
+module.exports = async function proxy(context) {
   if (!context.conf.remote) {
     return;
   }

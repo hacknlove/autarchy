@@ -1,13 +1,14 @@
+const { resolve } = require('path')
 const glob = require('glob');
 const { match, compile } = require('path-to-regexp');
 const chokidar = require('chokidar');
 
 
-const configPath = `${process.cwd()}/${process.argv[2]}`; 
-const prefix = `${configPath.replace(/config.js$/, '')}/endpoints`;
+const configPath = process.cwd(); 
+const prefix = resolve(configPath, 'endpoints');
 
 const defecto = {
-  name: process.argv[2].match(/([^/]*)\/config.js$/)[1],
+  name: configPath.match(/([^/]*)$/)[1],
   remote: null,
   local: {
     ip: '0.0.0.0',
@@ -30,7 +31,7 @@ const defecto = {
 
 const conf = {
   ...defecto,
-  ...require(configPath),
+  ...require(resolve(configPath, 'config.js')),
   endpoints: [],
 };
 

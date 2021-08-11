@@ -2,11 +2,11 @@ const send = require('./send');
 const steps = [
   require("./match"),
   require('./reqSchema'),
-  require('./pre'),
-  require('./cached'),
+  require('../../../shared/pre'),
+  require('../../../shared/cached'),
   require('./proxy'),
-  require('./recorder'),
-  require('./post'),
+  require('../../../shared/recorder'),
+  require('../../../shared/post'),
   require('./resSchema'),
 ]
 

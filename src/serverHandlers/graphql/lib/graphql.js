@@ -5,7 +5,7 @@ const steps = [
   require('../../../shared/pre'),
   require('../../../shared/cached'),
   require('./proxy'),
-  require('./recorder'),
+  require('../../../shared/recorder'),
   require('../../../shared/post'),
 ];
 
