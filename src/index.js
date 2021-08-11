@@ -9,10 +9,16 @@ const options = yargs
     type: 'boolean',
     demandOption: false,
     default: false,
+  })
+  .option('p', {
+    alias: 'package-manager',
+    describe: 'package manager',
+    type: 'string',
+    default: 'npm'
   }).argv
 
 if (options.i) {
-  require('./install')
+  require('./install')(options.p)
 } else {
   require('./main')
 }
