@@ -14,7 +14,7 @@ module.exports = function install (packageManager) {
       child_process.execSync('yarn add -D autharchy', {stdio:[0,1,2]});
       break;
     case 'npm':
-      child_process.execSync('npm i -d autharchy', {stdio:[0,1,2]});
+      child_process.execSync('npm i -D autharchy', {stdio:[0,1,2]});
       break;
     default:
       console.log('Package manager', packageManager, 'not supported')
