@@ -14,8 +14,6 @@ module.exports = function match(req) {
 
   const context = {
     request: {
-      path: req.path,
-      params: {},
       headers: {
         ...req.headers,
         host: new URL(conf.remote).host
@@ -29,7 +27,7 @@ module.exports = function match(req) {
   }
 
   for (const query of conf.queries) {
-    const matched = query.match(req.path);
+    const matched = query.match(context);
     if (!matched) {
       continue
     }

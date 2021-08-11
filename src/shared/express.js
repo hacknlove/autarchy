@@ -10,8 +10,8 @@ function connect(conf) {
   const {
     local: {
       ip = '0.0.0.0',
-      port = '8181',
-    },
+      port = '80',
+    } = {},
     remote,
   } = conf;
 
