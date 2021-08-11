@@ -4,7 +4,7 @@ const fs = require('fs');
 
 
 module.exports = function install (packageManager) {
-  if (fs.existsSync('./autharchy')) {
+  if (fs.existsSync('./.autharchy')) {
     console.log('Autharchy seems to be installed')
     process.exit()
   }
