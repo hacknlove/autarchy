@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "lint": "eslint --quiet --ext .js ./src --fix",
-    "install": "cd webapp && npm i && npm run build --scripts-prepend-node-path"
+    "lint": "eslint --quiet --ext .js ./src --fix"
   },
   "bin": {
     "autharchy": "src/index.js"
