@@ -66,9 +66,6 @@ async function main() {
 
   configWatched.on('unlink', removeServer);
 
-
-  console.log(resolve(__dirname, '..', 'webapp'))
-
   if (config.webapp) {
     console.log(`Launching webapp at http://localhost:${config.webapp}`)
     const webapp = spawn('npm', ['run', 'start', '--scripts-prepend-node-path'], {
