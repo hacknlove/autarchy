@@ -11,8 +11,8 @@ module.exports = async function proxy(context) {
   })
 
   const response = await graphQLClient.request(
-    context.graphql.query,
-    context.graphql.variables,
+    context.request.graphql.query,
+    context.request.graphql.variables,
   ).catch((error) => error)
 
   return {

@@ -2,35 +2,27 @@ const { resolve } = require('path')
 const glob = require('glob');
 const { match, compile } = require('path-to-regexp');
 const chokidar = require('chokidar');
+const { defecto } = require('../../../shared/conf');
 
 
 const configPath = process.cwd(); 
 const prefix = resolve(configPath, 'endpoints');
 
-const defecto = {
-  name: configPath.match(/([^/]*)$/)[1],
-  remote: null,
-  local: {
-    ip: '0.0.0.0',
-    port: 1989,
-  },
+const conf = {
+  ...defecto,
   toQuery: [
     ({
       request: {
         path, params, method, body, query,
       }
     }) => ({
-      path, params, method, body, query,
+      'request.path': path,
+      'request.params': params,
+      'request.method': method,
+      'request.body': body,
+      'request.query': query,
     })
   ],
-  toDocument: (context) => ({
-    ...context.request,
-    response: context.response
-  })
-};
-
-const conf = {
-  ...defecto,
   ...require(resolve(configPath, 'config.js')),
   endpoints: [],
 };

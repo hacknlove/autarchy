@@ -1,37 +1,27 @@
 const { resolve } = require('path')
 const glob = require('glob');
 const chokidar = require('chokidar');
+const { defecto } = require('../../../shared/conf');
 
 const configPath = process.cwd();
 const prefix = resolve(configPath, 'queries');
-
-const defecto = {
-  remote: null,
-  local: {
-    ip: '0.0.0.0',
-    port: 1989,
-  },
-  toQuery: [
-    ({
-      graphql: {
-        query, variable,
-      }
-    }) => ({
-      query, variable,
-    })
-  ],
-  toDocument: (context) => ({
-    ...context.graphql,
-    request: context.request,
-    response: context.response
-  })
-};
-
 
 const paths = {};
 
 const conf = {
   ...defecto,
+  toQuery: [
+    ({
+      request: {
+        graphql: {
+          operationName, variables,
+        }
+      }
+    }) => ({
+      'request.graphql.operationName': operationName,
+      'request.graphql.variables': variables,
+    })
+  ],
   ...require(resolve(configPath, 'config.js')),
   queries: [],
 };
