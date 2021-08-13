@@ -9,7 +9,21 @@ module.exports = function match(req) {
   delete req.headers['if-none-match'];
 
   if (shouldRenderGraphiQL(req)) {
-    return { response: {shouldRenderGraphiQL: true } }
+    return {
+      conf: {
+        ...conf,
+        toDocument: null
+      },
+      request: {
+        headers: {
+          ...req.headers,
+          host: new URL(conf.remote).host
+        },
+        method: req.method,
+        body: req.body,
+        query: req.query,
+      },
+      response: {shouldRenderGraphiQL: true } }
   }
 
   const context = {
@@ -21,8 +35,8 @@ module.exports = function match(req) {
       method: req.method,
       body: req.body,
       query: req.query,
+      graphql: getGraphQLParameters(req),
     },
-    graphql: getGraphQLParameters(req),
     conf
   }
 

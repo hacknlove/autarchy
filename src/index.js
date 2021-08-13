@@ -1,8 +1,10 @@
 #!/usr/bin/env node
 
 const chokidar = require('chokidar');
-const { fork } = require('child_process');
+const { fork, spawn } = require('child_process');
 const config = require(`${process.cwd()}/.autharchy/config.js`)
+const { resolve } = require('path');
+const mongoProxy = require('./shared/mongoProxy');
 
 const serverHandlers = {
   REST: `${__dirname}/serverHandlers/REST/index.js`,
@@ -12,7 +14,11 @@ const serverHandlers = {
 
 const servers = {};
 
-function addServer(path) {
+function pathToName (path) {
+  return path.match(/([^/]*)\/config\.js$/)[1]
+}
+
+async function addServer(path) {
   const conf = require(path);
   
   if (!serverHandlers[conf.type]) {
@@ -23,21 +29,30 @@ function addServer(path) {
   console.log(`add ${conf.type} server for ${path}`)
 
   servers[path] = fork(serverHandlers[conf.type], [], { cwd: path.replace(/config.js$/, '') });
+  await mongoProxy.waitFor
+  await mongoProxy.services.insertOne({ name: conf.name || pathToName(path), type: conf.type })
 }
 
-function changeServer(path) {
-  removeServer(path);
+async function changeServer(path) {
+  await removeServer(path);
   addServer(path);
 }
 
-function removeServer(path) {
+async function removeServer(path) {
+  const conf = require(path);
+
   delete require.cache[require.resolve(path)];
   if (servers[path]) {
     servers[path].kill();
+    await mongoProxy.waitFor
+    await mongoProxy.delete({ name: conf.name || pathToName(path), type: conf.type })
   }
 }
 
-function main() {
+async function main() {
+  await mongoProxy.waitFor
+  await mongoProxy.services.deleteMany({})
+
   const configWatched = chokidar.watch(`${process.cwd()}/.autharchy/*/config.js`, {
     ignoreInitial: false,
     awaitWriteFinish: true,
