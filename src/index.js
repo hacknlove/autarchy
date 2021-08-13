@@ -4,6 +4,7 @@ const chokidar = require('chokidar')
 const { fork } = require('child_process')
 const config = require(`${process.cwd()}/.autharchy/config.js`)
 const mongoProxy = require('./shared/mongoProxy')
+const exitHook = require('exit-hook');
 
 if (config.server) {
   const client = require('./client')
@@ -49,11 +50,12 @@ async function removeServer(path) {
   if (servers[path]) {
     servers[path].kill();
     await mongoProxy.waitFor
-    await mongoProxy.delete({ name: conf.name || pathToName(path), type: conf.type })
+    await mongoProxy.services.deleteOne({ name: conf.name || pathToName(path), type: conf.type })
   }
 }
 
 async function main() {
+  console.log('connecting with the database')
   await mongoProxy.waitFor
   await mongoProxy.services.deleteMany({})
 
@@ -72,3 +74,8 @@ async function main() {
 }
 
 main()
+
+exitHook(() => {
+  Object.values(servers).forEach(p => p.kill())
+	console.log('Exiting');
+});

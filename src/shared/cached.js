@@ -3,7 +3,7 @@
 const mongoProxy = require('./mongoProxy');
 
 module.exports = async function pre(context) {
-  if (context.response && !context.conf.toQuery) {
+  if (context.response || !context.conf.toQuery) {
     return context;
   }
 

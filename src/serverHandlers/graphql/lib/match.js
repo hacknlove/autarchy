@@ -12,7 +12,7 @@ module.exports = function match(req) {
     return {
       conf: {
         ...conf,
-        toDocument: null
+        toDocument: null,
       },
       request: {
         headers: {

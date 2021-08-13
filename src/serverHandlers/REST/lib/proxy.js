@@ -79,7 +79,7 @@ async function callEndpoint({
   return response;
 }
 
-exports.proxy = async function proxy(context) {
+module.exports = async function proxy(context) {
   if (!context.conf.remote) {
     return context
   }
@@ -88,4 +88,3 @@ exports.proxy = async function proxy(context) {
     response: await callEndpoint(context)
   }
 };
-exports.callEndpoint = callEndpoint;

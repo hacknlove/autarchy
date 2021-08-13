@@ -1,4 +1,3 @@
-const { resolve } = require('path')
 const express = require('express')
 const { conf } = require('./conf')
 
@@ -9,9 +8,10 @@ const app = express()
 app.enable('trust proxy');
 app.use(require('compression')())
 
+const unixSocket = '/tmp/' + Date.now() + Math.random()
 
 async function handler (req, res) {
-  const service = conf[req.hostname]
+  const service = conf[req.hostname || req.get('host')]
 
   if (!service) {
     res.status(404)
@@ -30,5 +30,6 @@ async function handler (req, res) {
 }
 
 app.use(handler)
-app.listen(resolve(__dirname, '.express'))
+app.listen(unixSocket)
 
+module.exports = unixSocket

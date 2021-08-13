@@ -1,17 +1,16 @@
 const crypto = require('crypto');
 const { createConnection } = require('net');
-const { resolve } = require('path');
-require('./client');
+const unixSocket = require('./handler')
 
 const algorithm = 'aes-256-ctr';
-const key = process.env.PASSWORD;
+const password = process.env.PASSWORD;
 const secret = process.env.SECRET;
 let serverConfig
 
 
 function start ({ port, host }) {
   serverConfig = { port, host }
-  console.log('Conecting...')
+  console.log(`Conecting to ${host}:${port}`)
   const socket = createConnection(port, host)
   
   socket.on('connect', () => {
@@ -20,18 +19,25 @@ function start ({ port, host }) {
 
   socket.on('close', () => {
     console.log('disconected. Retrying on 5 seconds')
-    setTimeout(start, 5000)
+    setTimeout(() => start(serverConfig), 5000)
   })
 
   socket.on('data', proxy)
+
+  socket.on('error', () => {
+    console.error(`Cannot connect to ${host}:${port}`)
+    process.exit(1)
+  })
 }
 
 function proxy (iv) {
   const socket = createConnection(serverConfig.port, serverConfig.host)
-  const expressSocket = createConnection(resolve(__dirname, '.express'))
+  const expressSocket = createConnection(unixSocket)
 
-  const ivDown = crypto.createHash('sha256').update(secret).update(iv).digest();
-  const ivUp = crypto.createHash('sha256').update(iv).update(secret).digest();
+  const hash = crypto.createHash('sha512').update(secret).update(iv).update(password).digest() 
+  const key = hash.slice(0, 32);
+  const ivDown = hash.slice(32, 48);
+  const ivUp = hash.slice(48, 64);
 
   const encrypt = crypto.createCipheriv(algorithm, key, ivUp) 
   const decrypt = crypto.createDecipheriv(algorithm, key, ivDown)
