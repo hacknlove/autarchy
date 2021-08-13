@@ -1,9 +1,14 @@
 #!/usr/bin/env node
 
-const chokidar = require('chokidar');
-const { fork } = require('child_process');
+const chokidar = require('chokidar')
+const { fork } = require('child_process')
 const config = require(`${process.cwd()}/.autharchy/config.js`)
-const mongoProxy = require('./shared/mongoProxy');
+const mongoProxy = require('./shared/mongoProxy')
+
+if (config.server) {
+  const client = require('./client')
+  client(config.server)
+}
 
 const serverHandlers = {
   REST: `${__dirname}/serverHandlers/REST/index.js`,

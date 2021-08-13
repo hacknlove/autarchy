@@ -1,10 +1,8 @@
-module.exports = async function proxy(req, res, next) {
-  res.status(req.response.status);
+module.exports = async function proxy(res, { response }) {
+  res.status(response.status);
 
-  for (const [key, value] of Object.entries(req.response.headers)) {
+  for (const [key, value] of Object.entries(response.headers)) {
     res.set(key, value);
   }
-  res.send(req.response.body);
-
-  next();
+  res.send(response.body);
 };
