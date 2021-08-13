@@ -20,13 +20,15 @@ module.exports = async function pre(context) {
     context.conf.toDocument = null
     context.response = context.response.response
 
-    await mongoProxy.requests.updateOne({
-      _id: context.requestId,
-    },{
-      $set: {
-        fromCache: true
-      }
-    })
+    if (!context.conf.skipLogs) {
+      await mongoProxy.requests.updateOne({
+        _id: context.requestId,
+      },{
+        $set: {
+          fromCache: true
+        }
+      })
+    }
   }
 
   return context

@@ -14,6 +14,13 @@ or as a dependency
 npm -D autharchy
 ```
 
+## Companions
+
+### [webapp](https://github.com/hacknlove/autharchy-webapp)
+Browse the recent requests 
+
+### [server](https://github.com/hacknlove/autharchy-server)
+Allow other to access your local services 
 ## Configuration
 
 ```
@@ -79,6 +86,8 @@ Please refer to the service type documentation to further instructions regarding
 #### toQuery
 `[(context) => ({ some mongo query }), ...]` | `false`
 
+Requests are cached so after a first fetch you don't need the remote service to be up and running.
+
 You can use `pre` to set `context.conf.toQuery` to false to disable the cache search
 
 Otherwise it will loop the array running query after query until it returns a response.
@@ -100,6 +109,10 @@ it's executed just before sending the response.
 It can be used to modify the response that will be sent
 
 Please refer to the service type documentation to further instructions regarding the context and the response
+
+#### skipLogs
+
+Requests are also logged, you can disable that setting `skipLogs` thuthy.
 
 ### REST
 

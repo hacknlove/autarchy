@@ -1,9 +1,8 @@
 #!/usr/bin/env node
 
 const chokidar = require('chokidar');
-const { fork, spawn } = require('child_process');
+const { fork } = require('child_process');
 const config = require(`${process.cwd()}/.autharchy/config.js`)
-const { resolve } = require('path');
 const mongoProxy = require('./shared/mongoProxy');
 
 const serverHandlers = {
