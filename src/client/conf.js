@@ -3,31 +3,18 @@ const chokidar = require('chokidar');
 
 const conf = {}
 
-const pathToDomain = {}
-
 function addFile(path) {
-  const service = require(path)
+  const { match, local } = require(path)
 
-  if (!service.domain) {
+  if (!match) {
     return
   }
-  if (conf[service.domain]) {
-    console.error('Two services cannot share the same domain', service.domain)
-  }
 
-  conf[service.domain] = service
-  pathToDomain[path] = service.domain
+  conf[path] = { match, local }
 }
 
 function removeFile(path) {
-  const domain = pathToDomain[path]
-
-  if (!domain) {
-    return
-  }
-
-  delete pathToDomain[path]
-  delete conf[domain]
+  delete conf[path]
 
   delete require.cache[require.resolve(path)];
 }
