@@ -31,6 +31,14 @@ function start ({ port, host }) {
 }
 
 function proxy (iv) {
+  if (iv.length > 64) {
+    const firstIv = iv.subarray(0, 64)
+    const restIv = iv.subarray(64)
+
+    proxy(firstIv)
+    proxy(restIv)
+    return
+  }
   const socket = createConnection(serverConfig.port, serverConfig.host)
   const expressSocket = createConnection(unixSocket)
 
