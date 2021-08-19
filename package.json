@@ -1,6 +1,6 @@
 {
   "name": "autarchy",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "proxied/saved/mocked environment to test and develop microservices ",
   "main": "index.js",
   "scripts": {
