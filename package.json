@@ -1,5 +1,5 @@
 {
-  "name": "autharchy",
+  "name": "autarchy",
   "version": "1.5.1",
   "description": "proxied/saved/mocked environment to test and develop microservices ",
   "main": "index.js",
@@ -8,18 +8,18 @@
     "lint": "eslint --quiet --ext .js ./src --fix"
   },
   "bin": {
-    "autharchy": "src/index.js"
+    "autarchy": "src/index.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hacknlove/autharchy.git"
+    "url": "git+https://github.com/hacknlove/autarchy.git"
   },
   "author": "Antonio Fernández Porrúa",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/hacknlove/autharchy/issues"
+    "url": "https://github.com/hacknlove/autarchy/issues"
   },
-  "homepage": "https://github.com/hacknlove/autharchy#readme",
+  "homepage": "https://github.com/hacknlove/autarchy#readme",
   "devDependencies": {
     "eslint": "^7.32.0"
   },

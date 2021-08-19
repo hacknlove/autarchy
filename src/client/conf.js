@@ -24,10 +24,10 @@ function changeFile(path) {
   addFile(path);
 }
 
-glob.sync(`${process.cwd()}/.autharchy/*/config.js`).forEach((path) => addFile(path, false));
+glob.sync(`${process.cwd()}/.autarchy/*/config.js`).forEach((path) => addFile(path, false));
 
 function live() {
-  const endpointsWatched = chokidar.watch(`${process.cwd()}/.autharchy/*/config.js`, {
+  const endpointsWatched = chokidar.watch(`${process.cwd()}/.autarchy/*/config.js`, {
     ignoreInitial: true, awaitWriteFinish: true, usePolling: true, interval: 1000,
   });
 

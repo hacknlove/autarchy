@@ -2,7 +2,7 @@
 
 const chokidar = require('chokidar')
 const { fork } = require('child_process')
-const config = require(`${process.cwd()}/.autharchy/config.js`)
+const config = require(`${process.cwd()}/.autarchy/config.js`)
 const mongoProxy = require('./shared/mongoProxy')
 const exitHook = require('exit-hook');
 
@@ -59,7 +59,7 @@ async function main() {
   await mongoProxy.waitFor
   await mongoProxy.services.deleteMany({})
 
-  const configWatched = chokidar.watch(`${process.cwd()}/.autharchy/*/config.js`, {
+  const configWatched = chokidar.watch(`${process.cwd()}/.autarchy/*/config.js`, {
     ignoreInitial: false,
     awaitWriteFinish: true,
     usePolling: true,

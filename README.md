@@ -1,4 +1,4 @@
-# autharchy
+# autarchy
 
 proxied/saved/mocked environment to test and develop microservices 
 
@@ -6,40 +6,40 @@ proxied/saved/mocked environment to test and develop microservices
 
 You can install it globally
 ```
-npm -g autharchy
+npm -g autarchy
 ```
 
 or as a dependency
 ```
-npm -D autharchy
+npm -D autarchy
 ```
 
 ## Companions
 
-### [webapp](https://github.com/hacknlove/autharchy-webapp)
+### [webapp](https://github.com/hacknlove/autarchy-webapp)
 Browse the recent requests 
 
-### [server](https://github.com/hacknlove/autharchy-server)
+### [server](https://github.com/hacknlove/autarchy-server)
 Allow other to access your local services 
 ## Configuration
 
 ```
-mkdir .autharchy
+mkdir .autarchy
 
-cd .autharchy
+cd .autarchy
 
 echo module.exports = {} > config.js
 ```
 
 ### Main config
-The file `.autharchy/config.js` will eventually allow to set default configuration for all the services. Currently it's not used.
+The file `.autarchy/config.js` will eventually allow to set default configuration for all the services. Currently it's not used.
 ### Service
 
 Create a folder for each service, with a `config.js` inside
 
 #### Example
 
-`.autharchy/foo/config.js`
+`.autarchy/foo/config.js`
 ```js
 module.exports = {
   type: 'REST',
@@ -120,11 +120,11 @@ Requests are also logged, you can disable that setting `skipLogs` thuthy.
 
 If you want an specific configuration for a endpoint, you need to create a file whose name is the http method (or `all`), and the file path is the `endpoint/` + the endpoint path
 
-For instance: This file `.autharchy/foo/endpoints/some/endpoint/GET.js` will override `.autharchy/foo/config.js` when the request is a `GET` to `/some/endpoint` 
+For instance: This file `.autarchy/foo/endpoints/some/endpoint/GET.js` will override `.autarchy/foo/config.js` when the request is a `GET` to `/some/endpoint` 
 
 You can use parameters between brackets.
 
-For instance this file `.autharchy/foo/endpoints/some/endpoint/[id]/all.js` will override `.autharchy/foo/config.js` when a `POST` is sent to `/some/endpoint/bar` or when a `GET` is sent to `/some/endpoint/buz`
+For instance this file `.autarchy/foo/endpoints/some/endpoint/[id]/all.js` will override `.autarchy/foo/config.js` when a `POST` is sent to `/some/endpoint/bar` or when a `GET` is sent to `/some/endpoint/buz`
 
 
 #### context
@@ -155,11 +155,11 @@ For instance this file `.autharchy/foo/endpoints/some/endpoint/[id]/all.js` will
 
 #### Queries
 
-If you want to override `.autharchy/foo/config.js` in some queries you can create any file at any path inside `.autharchy/foo/queries/`
+If you want to override `.autarchy/foo/config.js` in some queries you can create any file at any path inside `.autarchy/foo/queries/`
 
 For instance
 
-`.autharchy/foo/queries/bar.js`
+`.autarchy/foo/queries/bar.js`
 ```js
 module.exports = {
   match: (context) => true // false 
