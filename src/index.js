@@ -25,7 +25,11 @@ function pathToName (path) {
 
 async function addServer(path) {
   const conf = require(path);
-  
+
+  if (conf.type === 'none') {
+    return
+  }
+
   if (!serverHandlers[conf.type]) {
     console.error(`Server Handler ${conf.type} for ${path} not found`)
     return;
