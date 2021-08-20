@@ -3,8 +3,8 @@ const { createConnection } = require('net');
 const unixSocket = require('./handler')
 
 const algorithm = 'aes-256-ctr';
-const secret = process.env.SECRET;
-const clientId = process.env.CLIENT_ID;
+const secret = process.env.AUTARCHY_SECRET;
+const clientId = process.env.AUTARCHY_CLIENT_ID;
 if (!clientId || clientId.length !== 8) {
   console.error('CLIENTID should be 8 characters longth exactly')
   process.exit(1)
