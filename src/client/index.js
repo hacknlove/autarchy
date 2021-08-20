@@ -3,23 +3,29 @@ const { createConnection } = require('net');
 const unixSocket = require('./handler')
 
 const algorithm = 'aes-256-ctr';
-const password = process.env.PASSWORD;
 const secret = process.env.SECRET;
+const clientId = process.env.CLIENT_ID;
+if (!clientId || clientId.length !== 8) {
+  console.error('CLIENTID should be 8 characters longth exactly')
+  process.exit(1)
+}
+
 let serverConfig
 
+function start (config) {
+  const { port, host } = serverConfig = config
 
-function start ({ port, host }) {
-  serverConfig = { port, host }
   console.log(`Conecting to ${host}:${port}`)
   const socket = createConnection(port, host)
-  
+
   socket.on('connect', () => {
     console.log('conected')
+    socket.write(clientId)
   })
 
   socket.on('close', () => {
     console.log('disconected. Retrying on 5 seconds')
-    setTimeout(() => start(serverConfig), 5000)
+    setTimeout(() => start(config), 5000)
   })
 
   socket.on('data', proxy)
@@ -30,19 +36,30 @@ function start ({ port, host }) {
   })
 }
 
-function proxy (iv) {
-  if (iv.length > 64) {
-    const firstIv = iv.subarray(0, 64)
-    const restIv = iv.subarray(64)
+function proxy (requestId) {
+  if (requestId.length > 4) {
+    const firstRequestId = requestId.subarray(0, 4)
+    const restRequestId = requestId.subarray(4)
 
-    proxy(firstIv)
-    proxy(restIv)
+    proxy(firstRequestId)
+    proxy(restRequestId)
     return
   }
   const socket = createConnection(serverConfig.port, serverConfig.host)
+  console.log(clientId, requestId.toString('hex'))
+  const iv = crypto.randomBytes(32)
+  socket.write(clientId)
+  socket.write(requestId)
+  socket.write(iv)
+  
   const expressSocket = createConnection(unixSocket)
 
-  const hash = crypto.createHash('sha512').update(secret).update(iv).update(password).digest() 
+  const hash = crypto.createHash('sha512')
+    .update(secret)
+    .update(requestId.toString('hex'))
+    .update(iv)
+    .digest()
+  
   const key = hash.slice(0, 32);
   const ivDown = hash.slice(32, 48);
   const ivUp = hash.slice(48, 64);
