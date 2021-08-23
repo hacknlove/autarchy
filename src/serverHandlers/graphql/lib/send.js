@@ -4,7 +4,7 @@ const {
 
 module.exports = async function proxy(res, context) {
   if (!context.response) {
-    res.statuss(404).json({ error: 'not found' });
+    res.status(404).json({ error: 'not found' });
     return;
   }
 

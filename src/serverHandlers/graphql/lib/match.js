@@ -46,13 +46,13 @@ module.exports = function match(req) {
       continue
     }
     
-    context.request.params = matched.params;
     const mergedConf = merge(conf, query.conf)
 
     context.conf = mergedConf
-    context.headers.host = new URL(mergedConf.remote)
+    context.request.headers.host = new URL(mergedConf.remote).host
 
     context.response = mergedConf.response
+    delete context.conf.response
     break;
   }
 
