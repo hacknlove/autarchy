@@ -2,7 +2,7 @@
 /* eslint-disable no-await-in-loop */
 const mongoProxy = require('./mongoProxy');
 
-module.exports = async function pre(context) {
+module.exports = async function cached(context) {
   if (context.response || !context.conf.toQuery) {
     return context;
   }

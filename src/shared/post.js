@@ -1,4 +1,4 @@
-const mongoProxy = require("./mongoProxy");
+const mongoProxy = require('./mongoProxy');
 
 module.exports = async function mutatePost(context) {
   const newContext = context.conf.post ? await context.conf.post(context, mongoProxy.requests) : context

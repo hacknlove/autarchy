@@ -5,15 +5,7 @@ exports.defecto = {
     ip: '0.0.0.0',
     port: 1989,
   },
-  toQuery: [
-    ({
-      graphql: {
-        query, variable,
-      }
-    }) => ({
-      query, variable,
-    })
-  ],
+  toQuery: [],
   toDocument: (context) => ({
     request: context.request,
     response: context.response
