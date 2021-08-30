@@ -1,6 +1,6 @@
 {
   "name": "autarchy",
-  "version": "1.7.1",
+  "version": "1.7.2",
   "description": "proxied/saved/mocked environment to test and develop microservices ",
   "main": "index.js",
   "scripts": {
@@ -23,6 +23,7 @@
   "devDependencies": {
     "eslint": "^7.32.0",
     "eslint-plugin-jest": "^24.4.0",
+    "fetch-mock-jest": "^1.5.1",
     "jest": "^27.0.6"
   },
   "dependencies": {

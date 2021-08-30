@@ -80,7 +80,7 @@ async function callEndpoint({
 }
 
 module.exports = async function proxy(context) {
-  if (!context.conf.remote) {
+  if (!context.conf.remote || context.response) {
     return context
   }
   return {

@@ -4,5 +4,10 @@ module.exports = async function proxy(res, { response }) {
   for (const [key, value] of Object.entries(response.headers)) {
     res.set(key, value);
   }
-  res.send(response.body);
+
+  if (response.headers['content-type'] && response.headers['content-type'].startsWith('application/json')) {
+    res.json(response.body);
+  } else {
+    res.send(response.body);
+  }
 };

@@ -1,13 +1,11 @@
 const send = require('./send');
 const steps = [
   require("./match"),
-  require('./reqSchema'),
   require('../../../shared/pre'),
   require('../../../shared/cached'),
   require('./proxy'),
   require('../../../shared/recorder'),
   require('../../../shared/post'),
-  require('./resSchema'),
 ]
 
 module.exports = async function rest (req, res) {

@@ -32,7 +32,7 @@ module.exports = function match(req) {
     const mergedConf = merge(conf, endpoint.conf)
 
     context.conf = mergedConf
-    context.headers.host = new URL(mergedConf.remote)
+    context.request.headers.host = new URL(mergedConf.remote)
 
     context.response = mergedConf.response
     break;
