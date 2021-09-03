@@ -1,6 +1,6 @@
 {
   "name": "autarchy",
-  "version": "1.7.2",
+  "version": "1.8.0",
   "description": "proxied/saved/mocked environment to test and develop microservices ",
   "main": "index.js",
   "scripts": {
@@ -39,6 +39,8 @@
     "mongodb": "^4.1.0",
     "node-fetch": "^2.6.1",
     "path-to-regexp": "^6.2.0",
+    "pino": "^7.0.0-rc.3",
+    "pino-pretty": "^6.0.0",
     "timeout-signal": "^1.1.0"
   }
 }

@@ -43,7 +43,6 @@ async function callEndpoint({
 
   const url = new URL(path, remote)
 
-
   if (Object.keys(query)) {
     url.search = new URLSearchParams(query).toString()
   }
@@ -55,6 +54,7 @@ async function callEndpoint({
   if (timeout) {
     options.signal = timeoutSignal(timeout);
   }
+
   const r = await fetch(url, options).catch((error) => ({
     status: 599,
     headers: {

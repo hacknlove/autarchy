@@ -24,7 +24,7 @@ async function handler (req, res) {
 
   let request
 
-  const service = Object.values(conf).find(({ match }) => request = match(originalRequest))
+  const service = Object.values(conf).find(({ match }) => request = (typeof match === 'function') && match(originalRequest))
 
   if (!service) {
     res.status(404)

@@ -1,13 +1,12 @@
 const express = require('express');
 const { app, connect } = require('../../shared/express');
+require('../../shared/logger')('..')
+
 const { conf } = require('./lib/conf');
 
-async function main() {
-  app.use(express.json());
+require('../../shared/cors')(conf, app)
+app.use(express.json());
 
-  app.use(require('./lib/rest'));
+app.use(require('./lib/rest'));
 
-  connect(conf);
-}
-
-main();
+connect(conf);

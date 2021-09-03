@@ -13,9 +13,10 @@ module.exports = async function rest (req, res) {
 
   for (const step of steps) {
     context = await step(context)
-    if (context.response) {
-      return send(res, context)
-    }
   }
-  res.status(404).json({ error: 'not found' })
+  
+  if (!context.response) {
+    res.status(404).json({ error: 'not found' })
+  }
+  send(res, context)
 }
